@@ -12,7 +12,7 @@ int main(void){
 	scanf("%d",&key);
 	if(key==2025){
 	printf("±K½X¥¿½T\n");
-	printf("Åwªï~\n");
+	printf("Åwªï~~\n");
 	system("pause");
 	system("CLS");
 	printf("*********************\n");
