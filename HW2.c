@@ -28,12 +28,12 @@ int main(void){
 	do{
 		
 		
-		scanf("%d",&key);
+		scanf("%d",&key); 
 		fflush(stdin);
 		if(key==2025){//確認密碼是否正確 
 			break;
 		}
-		if(time>1){//檢查輸入次數 
+		if(time>1){//檢查輸入次數，輸入錯誤3次結束 
 			printf("錯誤!\n");
 			return 0;
 		}
