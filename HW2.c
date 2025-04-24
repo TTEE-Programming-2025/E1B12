@@ -44,7 +44,9 @@ int main(void){
 	}while(1);
 	system("CLS");
 	do{
-		printf("a. 畫出直角三角形\nb. 顯示乘法表\nc. 結束\n");//主介面 
+		printf("-------------------\n");
+		printf("|a. 畫出直角三角形|\n|b. 顯示乘法表    |\n|c. 結束          |\n");//主介面 
+		printf("-------------------\n");
 		printf("請輸入a或b或c:");
 		scanf("%c",&n);
 		fflush(stdin);
