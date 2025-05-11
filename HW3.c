@@ -1,120 +1,218 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<conio.h>
-#include<time.h> 
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <time.h>
+
 char seatB[9][9];
 //show the seat 
-void seatshow(char a[9][9]){
-	int i,j;
-	for(i=0;i<9;i++){
-		for(j=0;j<9;j++){
-			printf("%c",a[i][j]);
-		}
-		printf("\n");
-	}
+void seatshow(char a[9][9]) {
+    int i, j;
+    printf(" \\123456789\n");
+    for(i = 0; i < 9; i++) {
+        printf("%d", 9 - i);
+        for(j = 0; j < 9; j++) {
+            printf("%c", a[i][j]);
+        }
+        printf("\n");
+    }
 }
 //for a
-void optionA(char seat[9][9]){
-	system("CLS");
-	srand(time(NULL));
-	int i,j;
-	for(i=0;i<9;i++){
-		for(j=0;j<9;j++){
-			seat[i][j] = '_';
-		}
-	}
-	int count = 0;
-	while(count < 10){
-    	int a = rand() % 9;
-    	int b = rand() % 9;
-    	if(seat[a][b] != '*'){
-        	seat[a][b] = '*';
-        	count++; // 只在成功放置一顆 * 才增加 count
-    	}
-	}
-	for(i=0;i<9;i++){
-		for(j=0;j<9;j++){
-			seatB[i][j] = seat[i][j];
-		}
-	}
-	seatshow(seat);
+void optionA(char seat[9][9]) {
+    system("CLS");
+    srand(time(NULL));
+    int i, j;
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            seat[i][j] = '-';
+        }
+    }
+    int count = 0;
+    while(count < 10) {
+        int a = rand() % 9;
+        int b = rand() % 9;
+        if(seat[a][b] != '*') {
+            seat[a][b] = '*';
+            count++; // 只在成功放置一顆 * 才增加 count
+        }
+    }
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            seatB[i][j] = seat[i][j];
+        }
+    }
+    printf("現有座位如下：\n");
+    seatshow(seat);
 }
- 
-int main(void){
-	int key,time=0,j,k,l,num;//定義變數，分別代表:密碼/次數/迴圈/迴圈/迴圈/b的輸入數字 
-	char n,ch1;//定義變數，分別是一開始輸入的abc/a c輸入的字元 
-	char seat[9][9];
 
-	printf("請輸入4位數密碼:");
-	do{
-		
-		
-		scanf("%d",&key); 
-		fflush(stdin);
-		if(key==2025){//確認密碼是否正確 
-			break;
+void optionB(char seat[9][9]) {
+    int need,i,j,k;
+    printf("How many seats do you need? (1~4): ");
+    scanf("%d", &need);
+    if(need < 1 || need > 4) {
+        printf("錯誤數量，請回主選單。\n");
+        return;
+    }
+    else if(need>=1&&need<=4){
+    	switch(need){
+    		case 1:
+    			while(1){
+    				int a = rand()%9;
+    				int b = rand()%9;
+    				if(seat[a][b]!='*'){
+    					seat[a][b]='@';
+					}
+					break; 
+				}
+				break;
+			case 2:
+				while(1){
+                    int a=rand()%9;
+                    int b=rand()%8;
+                    if(seat[a][b]!='*'&&seat[a][b+1]!='*'){
+                        seat[a][b]='@'; 
+                        seat[a][b+1]='@'; 
+                        break;
+                    }
+                }
+                break;
+            case 3:
+                while(1){
+                    int a=rand()%9;
+                    int b=rand()%7;
+                    if(seat[a][b]=='-'&&seat[a][b+1]=='-'&&seat[a][b+2]=='-'){
+                        seat[a][b]='@'; 
+                        seat[a][b+1]='@';
+                        seat[a][b+2]='@'; 
+                        break;
+                	}     
+            	}
+                break;
+			case 4:
+                k=rand()%2;
+                while(k==0){
+                    int a=rand()%9;
+                    int b=rand()%6;
+                    if(seat[a][b]=='-'&&seat[a][b+1]=='-'&&seat[a][b+2]=='-'&&seat[a][b+3]=='-'){
+                        for(i=b;i<=b+3;i++){
+                        	seat[a][i]='@';
+						}
+                        break;
+                    }     
+                } 
+                while(k==1){
+                    int a=rand()%8;
+                    int b=rand()%8;
+                    if(seat[a][b]=='-'&&seat[a][b+1]=='-'&&seat[a+1][b]=='-'&&seat[a+1][b+1]=='-'){
+                        seat[a][b]='@'; 
+                        seat[a][b+1]='@';
+                        seat[a+1][b]='@';
+                        seat[a+1][b+1]='@'; 
+                        break;
+                    }     
+                }
+                break;  
 		}
-		if(time>1){//檢查輸入次數，輸入錯誤3次結束 
-			printf("錯誤!\n");
-			return 0;
-		}
-		else{//輸入錯誤時的提醒 
-			printf("請再次輸入4位數密碼:");
-		}
-		time++;
-	}while(1);
-	system("CLS");
-	//the menu
-	do{
-		printf("----[Booking System]----\n");
-		printf("|a. Available seats    |\n");//主介面 
-		printf("|b. Arrange for you    |\n");
-		printf("|c. Choose by yourself |\n");
-		printf("|d. Exit               |\n");
-		printf("------------------------\n");
-		printf("Please enter a or b or c or d:");
-		scanf("%c",&n);
-		fflush(stdin);
-		if(n=='a'||n=='A'){//輸入的是否是a 
-			optionA(seat);
-			printf("請按下任意鍵，回到主選單\n");
-			getch();
-			system("CLS");
-			continue;//回到主介面	
-		}
-		/*if(n=='b'||n=='B'){//輸入的是否是b
-			optionB(seatB);		
-		}
-		if(n=='c'||n=='C'){
-			optionC(seatB);
-		}*/
-		if(n=='d'||n=='D'){//輸入的是否是c
-			printf("Continue?(y/n):");
-			do{//確認輸入
-				scanf("%c",&ch1);
-				fflush(stdin);
-				switch(ch1){
-					case 'y':
-					case 'Y':
-						system("CLS");
-						break;
-					case 'N':
-					case 'n':
-						printf("程式結束");
-						return 0;
-					default:
-						printf("錯誤!，請重輸:");
-						continue;
-				}break;
-			}while(1);
-			continue;	
-		}
-		else{//輸入的不是a b c
-			printf("錯誤!請重新輸入\n");
-			continue;
-		}
-	}while(1);
-
-	
-	return 0;
+	}
+	printf("系統建議座位如下：\n");
+    seatshow(seat);
+    printf("是否滿意此安排？(y/n): ");
+    char ch;
+    fflush(stdin);
+    scanf(" %c", &ch);
+    if(ch == 'y' || ch == 'Y') {
+        for(i = 0; i < 9; i++) {
+            for(j = 0; j < 9; j++) {
+                if(seat[i][j] == '@') seat[i][j] = '*';
+            }
+        }
+    } 
+	else{
+        for(i = 0; i < 9; i++) {
+            for(j = 0; j < 9; j++) {
+                if(seat[i][j] == '@') seat[i][j] = '-';
+            }
+        }
+    }
 }
+int main(void) {
+    int key, time = 0;//定義變數，分別代表:密碼/次數
+    char n, ch1;
+    char seat[9][9];
+
+    // 個人風格畫面
+    system("CLS");
+
+    printf("請輸入4位數密碼: ");
+    do {
+        scanf("%d", &key);
+        fflush(stdin);
+        if(key == 2025) {//確認密碼是否正確
+        	break;
+		}
+        if(time >= 2) {//檢查輸入次數，輸入錯誤3次結束
+            printf("錯誤三次，程式結束。\n");
+            return 0;
+        } 
+		else {//輸入錯誤時的提醒 
+            printf("密碼錯誤，請重新輸入: ");
+            time++;
+        }
+    } while(1);
+
+    system("CLS");
+
+    do {//主介面 
+        printf("----------[Booking System]----------\n");
+        printf("| a. Available seats                |\n");
+        printf("| b. Arrange for you                |\n");
+        printf("| c. Choose by yourself             |\n");
+        printf("| d. Exit                           |\n");
+        printf("------------------------------------\n");
+        printf("Please enter a or b or c or d: ");
+        scanf(" %c", &n);
+        fflush(stdin);
+        if(n == 'a' || n == 'A') {//輸入的是否是a 
+            optionA(seat);
+            printf("請按任意鍵返回主選單...\n");
+            getch();
+            system("CLS");
+            continue;
+        }
+        if(n == 'b' || n == 'B') {//輸入的是否是b
+            optionB(seatB);
+            printf("請按任意鍵返回主選單...\n");
+            getch();
+            system("CLS");
+            continue;
+        }
+        /*if(n == 'c' || n == 'C') {//輸入的是否是c
+            optionC(seatB);
+            system("CLS");
+            continue;
+        }*/ 
+        if(n == 'd' || n == 'D') {//輸入的是否是d
+            printf("Continue? (y/n): ");
+            do {
+                scanf(" %c", &ch1);
+                fflush(stdin);
+                if(ch1 == 'y' || ch1 == 'Y') {
+                    system("CLS");
+                    break;
+                } else if(ch1 == 'n' || ch1 == 'N') {
+                    printf("程式結束。\n");
+                    return 0;
+                } else {
+                    printf("錯誤輸入，請重新輸入(y/n): ");
+                }
+            } while(1);
+            continue;
+        } 
+		else {//不是abc 
+            printf("輸入錯誤，請重新輸入。\n");
+            continue;
+        }
+    } while(1);
+
+    return 0;
+}
+
