@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <time.h>
-#include <string.h>
 char seatB[9][9];//A global variable to store the seating chart when 'a' is first entered.
 //show the seat 
 void seatshow(char a[9][9]) {
@@ -140,27 +139,32 @@ void optionB(char seat[9][9]) {
 }
 //for c
 void optionC(char seat[9][9]) {
-    int i,j,a,b;
+    int i,j,a,b,num;
     char ch;
-	do{
-		printf("Please enter a seat (format: 1-2):"); 
-		scanf("%d%c%d",&a,&ch,&b);
-		if(a>9||a<1||b>9||b<1){
-			printf("Error, please re-enter.\n");
-			continue;
-		}
-		if(ch!='-'){
-			printf("Error, please re-enter.\n");
-			continue;
-		}
-		if(seat[9-a][b-1]=='*'){
-			printf("Already selected, please re-enter.\n");
-		}
-		else{
-			seat[9-a][b-1]='@';
-			break;
-		}
-	}while(1);
+    printf("Please enter how many seats you want:");
+    scanf("%d",&num);
+    for(i=1;i<=num;i++){
+    	do{
+			printf("Please enter a seat (format: 1-2):"); 
+			scanf("%d%c%d",&a,&ch,&b);
+			if(a>9||a<1||b>9||b<1){
+				printf("Error, please re-enter.\n");
+				continue;
+			}
+			if(ch!='-'){
+				printf("Error, please re-enter.\n");
+				continue;
+			}
+			if(seat[9-a][b-1]=='*'){
+				printf("Already selected, please re-enter.\n");
+			}
+			else{
+				seat[9-a][b-1]='@';
+				break;
+			}
+		}while(1);
+	}
+	
     // Display preview of seating chart.
     seatshow(seat);
     printf("If correct, press any key to continue...\n");
@@ -201,10 +205,12 @@ int main(void) {
         }
     }
     // Personalized interface
-    printf("==============\n");
-	printf("==============\n");
-	printf("E1B12\n");
-	
+    printf("===================\n");
+	printf("===================\n");
+	printf("E1B12 password:2025\n");
+	for(i = 0; i < 17; i++) {
+        printf("===================\n");
+    }
     printf("Please enter a 4-digit password:");
     do {
         scanf("%d", &key);
