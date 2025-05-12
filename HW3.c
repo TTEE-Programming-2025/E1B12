@@ -16,8 +16,8 @@ void seatshow(char a[9][9]) {
         printf("\n");
     }
 }
-//for a
-void optionA(char seat[9][9]) {
+//for a廢案 
+/*void optionA(char seat[9][9]) {
     system("CLS");
     srand(time(NULL));
     int i, j;
@@ -42,7 +42,7 @@ void optionA(char seat[9][9]) {
     }
     printf("現有座位如下：\n");
     seatshow(seat);
-}
+}*/
 //for b 
 void optionB(char seat[9][9]) {
     int need,i,j,k;
@@ -88,29 +88,33 @@ void optionB(char seat[9][9]) {
             	}
                 break;
 			case 4:
-                k=rand()%2;
-                if(k == 0){
-        				int a=rand()%9;
-                    	int b=rand()%6;
-                    	if(seat[a][b]=='-'&&seat[a][b+1]=='-'&&seat[a][b+2]=='-'&&seat[a][b+3]=='-'){
-                        	for(i=b;i<=b+3;i++){
-                        		seat[a][i]='@';
-							}
-                        	break;
-                    	}	
-    				} 
-					else if(k == 1){
-        				int a=rand()%8;
-                    	int b=rand()%8;
-                    	if(seat[a][b]=='-'&&seat[a][b+1]=='-'&&seat[a+1][b]=='-'&&seat[a+1][b+1]=='-'){
-                        	seat[a][b]='@'; 
-                        	seat[a][b+1]='@';
-                        	seat[a+1][b]='@';
-                        	seat[a+1][b+1]='@'; 
-                        	break;
-    					}
-					}
-                break;  
+    			while(1) {
+        			k = rand() % 2;
+        			if (k == 0) {
+            			int a = rand() % 9;
+            			int b = rand() % 6;
+            			if (seat[a][b] == '-' && seat[a][b+1] == '-' &&
+                			seat[a][b+2] == '-' && seat[a][b+3] == '-') {
+                			for (i = b; i <= b + 3; i++) {
+                    			seat[a][i] = '@';
+                			}
+                			break; // ? 正確：跳出 while(1)
+            			}
+        			} 
+					else {
+            			int a = rand() % 8;
+            			int b = rand() % 8;
+            			if (seat[a][b] == '-' && seat[a][b+1] == '-' &&
+                			seat[a+1][b] == '-' && seat[a+1][b+1] == '-') {
+                			seat[a][b] = '@';
+                			seat[a][b+1] = '@';
+                			seat[a+1][b] = '@';
+                			seat[a+1][b+1] = '@';
+                			break; 
+            			}
+        			}
+    			}
+    			break;  
 		}
 	}
 	printf("系統建議座位如下：\n");
@@ -135,113 +139,72 @@ void optionB(char seat[9][9]) {
     }
 }
 //for c
-/*void optionC(char seat[9][9]) {
-    int a,b,i,j;
-    char input[10];
-    int row, col;
-    char temp[9][9];
-    for(i = 0; i < 9; i++){
-    	for(j = 0; j < 9; j++){
-    		temp[i][j] = seat[i][j];
+void optionC(char seat[9][9]) {
+    int i,j,a,b;
+    char ch;
+	do{
+		printf("請輸入座位(格式如1-2):"); 
+		scanf("%d%c%d",&a,&ch,&b);
+		if(a>9||a<1||b>9||b<1){
+			printf("錯誤，請重新輸入\n");
+			continue;
 		}
-	} 
-
-    printf("請依格式輸入座位 (例：1-2)，結束請輸入 x：\n");
-    while(1) {
-        scanf("%s", input);
-        if(input[0] == 'x' || input[0] == 'X'){
+		if(ch!='-'){
+			printf("錯誤，請重新輸入\n");
+			continue;
+		}
+		if(seat[9-a][b-1]=='*'){
+			printf("已選，請重新輸入\n");
+		}
+		else{
+			seat[9-a][b-1]='@';
 			break;
 		}
-		
-        if(sscanf(input, "%d-%d", &a, &b) != 2 || a < 1 || a > 9 || b < 1 || b > 9) {
-            printf("格式錯誤或超出範圍，請重新輸入。\n");
-            continue;
-        }
-        row = 9 - a;
-        col = b - 1;
-        if(temp[row][col] == '-') {
-            temp[row][col] = '@';
-        } else {
-            printf("座位 %d-%d 已被選，請重新輸入。\n", a, b);
-        }
-    }
-    seatshow(temp);
-    printf("若選擇正確，請按任意鍵繼續...\n");
-    getch();
-    // 更新已選座位為 *
-    for(i = 0; i < 9; i++) {
-        for(j = 0; j < 9; j++) {
-            if(temp[i][j] == '@') {
-            	seat[i][j] = '*';	
-			}
-        }
-    }
-}*/ 
-void optionC(char seat[9][9]) {
-    char input[100];
-    char *token;
-    int a, b, row, col;
-    int i, j;
-    char temp[9][9];
-    int valid;
-
-    while (1) {
-        // 每次先複製一份原本的座位圖
-        for (i = 0; i < 9; i++) {
-            for (j = 0; j < 9; j++) {
-                temp[i][j] = seat[i][j];
-            }
-        }
-
-        printf("請依格式輸入座位（例：1-2 3-4 5-6），按 Enter 結束：\n");
-        fgets(input, sizeof(input), stdin);
-        input[strcspn(input, "\n")] = 0; // 去除換行字元
-
-        valid = 1; // 預設輸入有效
-
-        // 逐個檢查座位格式與狀態
-        token = strtok(input, " ");
-        while (token != NULL) {
-            if (sscanf(token, "%d-%d", &a, &b) != 2 || a < 1 || a > 9 || b < 1 || b > 9) {
-                printf("輸入「%s」格式錯誤或超出範圍。\n", token);
-                valid = 0;
-                break;
-            }
-            row = 9 - a;
-            col = b - 1;
-            if (temp[row][col] != '-') {
-                printf("座位 %d-%d 已被選，請重新輸入。\n", a, b);
-                valid = 0;
-                break;
-            }
-            temp[row][col] = '@'; // 標記選位
-            token = strtok(NULL, " ");
-        }
-
-        if (valid) break; // 所有輸入都合法才跳出迴圈，否則重輸
-    }
-
+	}while(1);
     // 顯示預覽座位圖
-    seatshow(temp);
+    seatshow(seat);
     printf("若選擇正確，請按任意鍵繼續...\n");
     getch();
 
     // 確認後將選擇寫入主座位表
     for (i = 0; i < 9; i++) {
         for (j = 0; j < 9; j++) {
-            if (temp[i][j] == '@') {
+            if (seat[i][j] == '@') {
                 seat[i][j] = '*';
             }
         }
     }
 }
 int main(void) {
-    int key, time = 0;//定義變數，分別代表:密碼/次數
+    srand(time(NULL));
+	int key, time = 0;//定義變數，分別代表:密碼/次數
     char n, ch1;
     char seat[9][9];
-
+    int i, j;
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            seat[i][j] = '-';
+        }
+    }
+    int count = 0;
+    while(count < 10) {
+        int a = rand() % 9;
+        int b = rand() % 9;
+        if(seat[a][b] != '*') {
+            seat[a][b] = '*';
+            count++;// 只在成功放置一顆 * 才增加 count
+        }
+    }
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            seatB[i][j] = seat[i][j];
+        }
+    }
     // 個人風格畫面
-    system("CLS");
+    printf("==============\n");
+	printf("==============\n");
+	printf("E1B12\n");
+	
     printf("請輸入4位數密碼: ");
     do {
         scanf("%d", &key);
@@ -269,10 +232,11 @@ int main(void) {
         printf("| d. Exit                           |\n");
         printf("------------------------------------\n");
         printf("Please enter a or b or c or d: ");
+        
         scanf(" %c", &n);
         fflush(stdin);
         if(n == 'a' || n == 'A') {//輸入的是否是a
-            optionA(seat);
+            seatshow(seatB);
             printf("請按任意鍵返回主選單...\n");
             getch();
             system("CLS");
