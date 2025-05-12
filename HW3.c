@@ -285,4 +285,8 @@ int main(void) {
 
     return 0;
 }
-
+/*In this assignment, I had the opportunity to practice both arrays and functions.
+ This is similar to a positioning system program, which is actually quite common in 
+ everyday life, but I didn¡¦t expect it to be so challenging to write. Additionally, 
+ I practiced converting comments into English, making the entire program more 
+ internationalized, which I find very meaningful.*/ 
