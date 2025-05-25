@@ -12,7 +12,7 @@ struct data{
 	int english;
 	float avg;
 }student[MAX];
-void swap(struct data *a, struct data *b) {
+void swap(struct data *a, struct data *b) {//交換的函式 
     struct data temp = *a;
     *a = *b;
     *b = temp;
@@ -22,13 +22,13 @@ void optionA(){
 	int i,check=0;
 	system("CLS");
     do{
-    	printf("請輸入學生人數:(5~10)");
+    	printf("請輸入學生人數:(5~10):");
     	scanf("%d",&n);
     	if(n<5||n>10){
     		printf("錯誤!");
 		}
-	}while(n<5||n>10);
-    for(i=0;i<n;i++){
+	}while(n<5||n>10);//只能輸出5~10為哦! 
+    for(i=0;i<n;i++){//依序輸入資料 
     	printf("請輸入第%d位學生的姓名:",i+1);
     	scanf("%s",student[i].name);
     	do{
@@ -75,9 +75,9 @@ void optionA(){
 void optionB(){
 	int i;
 	system("CLS");
-	printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
+	printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");//讓輸出對齊的好方法 
     for(i=0;i<n;i++){
-    	student[i].avg=(student[i].math+student[i].physis+student[i].english)/3;
+    	student[i].avg=(student[i].math+student[i].physis+student[i].english)/3;//計算並記錄平均 
     	printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
 	}
 	
@@ -91,7 +91,7 @@ void optionC() {
     printf("輸入學生的姓名:");
     scanf("%s",str);
     for(i=0;i<n;i++){
-    	if(strcmp(str,student[i].name)==0){
+    	if(strcmp(str,student[i].name)==0){//比較姓名 
     		printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
     		printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
 			check=1;
@@ -107,6 +107,7 @@ void optionD() {
     // 排序：從大到小
     system("CLS");
 	int i,j;
+	printf("大到小:\n");
     for (i = 0; i < n - 1; i++) {
         for (j = 0; j < n - i - 1; j++) {
             if (student[j].avg < student[j + 1].avg) {
@@ -125,11 +126,11 @@ int main(void) {
     char n, ch1;
     int count = 0;
     // Personalized interface
-    printf("===================\n");
-	printf("===================\n");
+    printf("℅★☆⊕℅★☆⊕℅★☆⊕℅★☆⊕℅★☆⊕℅\n");
+	printf("℅★☆⊕℅★☆⊕℅★☆⊕℅★☆⊕℅★☆⊕℅\n");
 	printf("E1B12 password:2025\n");
 	for(i = 0; i < 17; i++) {
-        printf("===================\n");
+        printf("℅★☆⊕℅★☆⊕℅★☆⊕℅★☆⊕℅★☆⊕℅\n");
     }
     printf("Please enter a 4-digit password:");
     do {
