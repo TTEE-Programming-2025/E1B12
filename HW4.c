@@ -8,7 +8,7 @@ struct data{
 	char name[99];
 	char id[7];
 	int math;
-	int physis;
+	int physics;
 	int english;
 	float avg;
 }student[MAX];
@@ -19,7 +19,7 @@ void swap(struct data *a, struct data *b) {//交換的函式
 }
 //for a
 void optionA(){
-	int i,check=0;
+	int i,j,check=0;
 	system("CLS");
     do{
     	printf("請輸入學生人數:(5~10):");
@@ -35,10 +35,19 @@ void optionA(){
     		check=0;
     		printf("輸入第%d位學生的學號:",i+1);
     		scanf("%s",student[i].id);
-    		if(strlen(student[i].id) != 6){
-    			printf("錯誤!");
-    			check=1;
-			}
+    		if(strlen(student[i].id) != 6) {
+                printf("錯誤! 學號必須為 6 位數字。\n");
+                check = 1;
+            } 
+			else{
+                for (j = 0; j < 6; j++) {
+                    if (student[i].id[j] < '0' || student[i].id[j] > '9') {
+                        printf("錯誤! 學號中不能包含英文字母。\n");
+                        check = 1;
+                        break;
+                    }
+                }
+            }
 		}while(check==1);
 		do{
 			check=0;
@@ -53,8 +62,8 @@ void optionA(){
 		do{
 			check=0;
     		printf("輸入第%d位學生的物理成績:",i+1);
-    		scanf("%d",&student[i].physis);
-    		if(student[i].physis<0||student[i].physis>100){
+    		scanf("%d",&student[i].physics);
+    		if(student[i].physics<0||student[i].physics>100){
     			printf("錯誤!");
     			check=1;
 			}
@@ -77,8 +86,8 @@ void optionB(){
 	system("CLS");
 	printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");//讓輸出對齊的好方法 
     for(i=0;i<n;i++){
-    	student[i].avg=(student[i].math+student[i].physis+student[i].english)/3;//計算並記錄平均 
-    	printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
+    	student[i].avg=(student[i].math+student[i].physics+student[i].english)/3;//計算並記錄平均 
+    	printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physics,student[i].english,student[i].avg);
 	}
 	
 }
@@ -93,7 +102,7 @@ void optionC() {
     for(i=0;i<n;i++){
     	if(strcmp(str,student[i].name)==0){//比較姓名 
     		printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
-    		printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
+    		printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physics,student[i].english,student[i].avg);
 			check=1;
 			break;
 		} 
