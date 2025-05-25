@@ -216,8 +216,6 @@ int main(void) {
 
     return 0;
 }
-/*In this assignment, I had the opportunity to practice both arrays and functions.
- This is similar to a positioning system program, which is actually quite common in 
- everyday life, but I didn’t expect it to be so challenging to write. Additionally, 
- I practiced converting comments into English, making the entire program more 
- internationalized, which I find very meaningful.*/ 
+/*在這次的作業中，我熟悉了結構這個酷東西，
+這個東東除了讓我不用設太多變數外，也讓我很
+清楚的知道哪個變數的用途是甚麼，不會混淆。*/ 
