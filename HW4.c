@@ -75,10 +75,10 @@ void optionA(){
 void optionB(){
 	int i;
 	system("CLS");
-	printf("姓名   學號   數學 物理 英文 平均\n");
+	printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
     for(i=0;i<n;i++){
     	student[i].avg=(student[i].math+student[i].physis+student[i].english)/3;
-    	printf("%6s%-6s%-4d%-4d%-4d%-4.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
+    	printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
 	}
 	
 }
