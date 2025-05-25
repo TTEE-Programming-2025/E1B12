@@ -88,12 +88,12 @@ void optionC() {
     system("CLS");
     char str[99];
     int check=0;
-    printf("輸入第生的姓名:");
+    printf("輸入學生的姓名:");
     scanf("%s",str);
     for(i=0;i<n;i++){
     	if(strcmp(str,student[i].name)==0){
-    		printf("姓名 學號 數學 物理 英文 平均\n");
-    		printf("%s %s %d %d %d %.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
+    		printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");
+    		printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physis,student[i].english,student[i].avg);
 			check=1;
 			break;
 		} 
@@ -114,9 +114,9 @@ void optionD() {
         }
     }
 
-    printf("姓名          學號        平均\n");
+    printf("%-8s %-10s %-6s\n", "姓名", "學號", "平均");
     for (i = 0; i < n; i++) {
-        printf("%s %s %.1f\n", student[i].name, student[i].id, student[i].avg);
+        printf("%-8s %-10s %-6.1f\n", student[i].name, student[i].id, student[i].avg);
     }
 }
 int main(void) {
@@ -157,7 +157,7 @@ int main(void) {
         printf("| d. Grade ranking                  |\n");
         printf("| e. Exit syste                     |\n");
         printf("------------------------------------\n");
-        printf("Please enter a or b or c or d: ");
+        printf("Please enter a or b or c or d or e: ");
         
         scanf(" %c", &n);
         fflush(stdin);
