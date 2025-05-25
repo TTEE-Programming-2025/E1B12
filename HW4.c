@@ -78,6 +78,7 @@ void optionA(){
     			check=1;
 			}
 		}while(check==1);
+		student[i].avg=(student[i].math+student[i].physics+student[i].english)/3;//計算並記錄平均 
 	}
 }
 //for b 
@@ -86,7 +87,6 @@ void optionB(){
 	system("CLS");
 	printf("%-8s %-10s %-6s %-6s %-6s %-6s\n", "姓名", "學號", "數學", "物理", "英文", "平均");//讓輸出對齊的好方法 
     for(i=0;i<n;i++){
-    	student[i].avg=(student[i].math+student[i].physics+student[i].english)/3;//計算並記錄平均 
     	printf("%-8s %-10s %-6d %-6d %-6d %-6.1f\n",student[i].name,student[i].id,student[i].math,student[i].physics,student[i].english,student[i].avg);
 	}
 	
