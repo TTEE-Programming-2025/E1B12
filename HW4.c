@@ -24,10 +24,10 @@ void optionA(){
     do{
     	printf("請輸入學生人數:(5~10)");
     	scanf("%d",&n);
-    	if(n<0||n>10){
+    	if(n<5||n>10){
     		printf("錯誤!");
 		}
-	}while(n<0||n>10);
+	}while(n<5||n>10);
     for(i=0;i<n;i++){
     	printf("請輸入第%d位學生的姓名:",i+1);
     	scanf("%s",student[i].name);
@@ -105,6 +105,7 @@ void optionC() {
 //for d
 void optionD() {
     // 排序：從大到小
+    system("CLS");
 	int i,j;
     for (i = 0; i < n - 1; i++) {
         for (j = 0; j < n - i - 1; j++) {
